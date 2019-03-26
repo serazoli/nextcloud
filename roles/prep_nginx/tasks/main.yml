@@ -31,7 +31,7 @@
   
 - name: set netmask
   set_fact: 
-    net_mask: "{{ ansible_default_ipv4.network }}/{{ ansible_default_ipv4.netmask }}"
+    net_mask: "{{ ansible_default_ipv4.network }}/{{ (ansible_default_ipv4.network + '/' + ansible_default_ipv4.netmask) | ipaddr('prefix') | string }}"
   
 - name: bring /etc/nginx/nginx.conf in place
   template:
